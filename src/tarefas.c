@@ -279,22 +279,51 @@ void carregarTarefasTxt() {
     char linha[256];
     char status[16];
 
+    // Loop para ler o arquivo linha por linha até o final
     while (fgets(linha, sizeof(linha), f)) {
+
+        // Verifica se a linha atual começa com "ID:"
         if (strncmp(linha, "ID:", 3) == 0) {
+            // Extrai o valor do ID da tarefa e armazena na struct temporária `t`
             sscanf(linha, "ID: %d", &t.id);
+
+        // Verifica se a linha atual começa com "Descrição:"
         } else if (strncmp(linha, "Descrição:", 10) == 0) {
+            // Lê toda a descrição da tarefa até a quebra de linha e armazena em `t.descricao`
             sscanf(linha, "Descrição: %[^\n]", t.descricao);
+
+        // Verifica se a linha atual começa com "Prioridade:"
+        
         } else if (strncmp(linha, "Prioridade:", 11) == 0) {
+            // Lê a prioridade (1=baixa, 2=média, 3=alta) e armazena em `t.prioridade`
             sscanf(linha, "Prioridade: %d", &t.prioridade);
+
+        // Verifica se a linha atual começa com "Status:"
+        
         } else if (strncmp(linha, "Status:", 7) == 0) {
+            // Lê o status textual ("Pendente" ou "Concluída") e armazena na string auxiliar `status`
             sscanf(linha, "Status: %[^\n]", status);
+
+        // Verifica se a linha atual começa com "Data:"
+        
         } else if (strncmp(linha, "Data:", 5) == 0) {
+            // Lê a data de criação da tarefa e armazena em `t.dataCriacao`
             sscanf(linha, "Data: %[^\n]", t.dataCriacao);
+
+            // Define o campo `concluida` com base no valor de `status`
+            // Se `status` for "Concluída", `t.concluida` será 1 (true), caso contrário será 0 (false)
             t.concluida = (strcmp(status, "Concluída") == 0);
+
+        // Verifica se chegou ao fim do bloco de uma tarefa (linha com "----")
+        
         } else if (strncmp(linha, "----", 4) == 0) {
+            // Garante que ainda há espaço no vetor de tarefas
             if (totalTarefas < MAX_TAREFAS) {
+                // Adiciona a tarefa `t` ao array de tarefas e incrementa o contador
                 tarefas[totalTarefas++] = t;
-                t = (Tarefa){0}; // Reinicia a struct
+
+                // Reinicia todos os campos da struct `t` para garantir que os dados da próxima tarefa não sejam afetados
+                t = (Tarefa){0};
             }
         }
     }
