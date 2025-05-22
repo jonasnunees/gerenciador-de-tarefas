@@ -53,6 +53,36 @@ Salvar tarefas
 Carregar tarefas
 ```
 
+## 🛠️ Como compilar e executar
+
+Pré-requisitos
+Um compilador C (como gcc, clang, etc.)
+
+Terminal de linha de comando (Linux, macOS ou Windows com PowerShell / CMD / Git Bash)
+
+Compilando o programa
+No terminal, navegue até a pasta onde estão os arquivos .c e .h do projeto e execute:
+```
+gcc main.c tarefas.c -o gerenciador
+```
+
+- main.c: contém o menu principal e a lógica de interação com o usuário.
+- tarefas.c: contém a implementação das funções de manipulação de tarefas.
+- -o gerenciador: define o nome do executável gerado (gerenciador.exe no Windows ou gerenciador no Linux/macOS).
+
+Executando o programa
+Depois de compilar, rode o programa com:
+
+```
+./gerenciador
+```
+
+No Windows, use:
+
+```
+gerenciador.exe
+```
+
 ## 📌 Sobre o projeto
 
 Este projeto foi feito com o objetivo de praticar lógica de programação, manipulação de arquivos e organização modular em C. É ideal para quem está começando ou quer um exemplo real de projeto em C para estudo e evolução.
