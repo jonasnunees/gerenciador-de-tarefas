@@ -293,19 +293,16 @@ void carregarTarefasTxt() {
             sscanf(linha, "Descrição: %[^\n]", t.descricao);
 
         // Verifica se a linha atual começa com "Prioridade:"
-        
         } else if (strncmp(linha, "Prioridade:", 11) == 0) {
             // Lê a prioridade (1=baixa, 2=média, 3=alta) e armazena em `t.prioridade`
             sscanf(linha, "Prioridade: %d", &t.prioridade);
 
         // Verifica se a linha atual começa com "Status:"
-        
         } else if (strncmp(linha, "Status:", 7) == 0) {
             // Lê o status textual ("Pendente" ou "Concluída") e armazena na string auxiliar `status`
             sscanf(linha, "Status: %[^\n]", status);
 
         // Verifica se a linha atual começa com "Data:"
-        
         } else if (strncmp(linha, "Data:", 5) == 0) {
             // Lê a data de criação da tarefa e armazena em `t.dataCriacao`
             sscanf(linha, "Data: %[^\n]", t.dataCriacao);
@@ -315,7 +312,6 @@ void carregarTarefasTxt() {
             t.concluida = (strcmp(status, "Concluída") == 0);
 
         // Verifica se chegou ao fim do bloco de uma tarefa (linha com "----")
-        
         } else if (strncmp(linha, "----", 4) == 0) {
             // Garante que ainda há espaço no vetor de tarefas
             if (totalTarefas < MAX_TAREFAS) {
