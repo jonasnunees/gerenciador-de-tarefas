@@ -6,9 +6,15 @@
 #include "tarefas.h" // Inclusão do cabeçalho com as declarações e estrutura de Tarefa
 
 // Declaração e inicialização dos dados globais
-Tarefa tarefas[MAX_TAREFAS];  // Vetor que armazena todas as tarefas
-int totalTarefas = 0;         // Contador de quantas tarefas existem
-int proximoId = 1;            // ID a ser usado para a próxima tarefa criada
+
+// Vetor que armazena todas as tarefas
+Tarefa tarefas[MAX_TAREFAS];  
+
+// Contador de quantas tarefas existem
+int totalTarefas = 0;        
+
+// ID a ser usado para a próxima tarefa criada
+int proximoId = 1;            
 
 // Zera a lista de tarefas
 void inicializarTarefas() {
@@ -57,11 +63,18 @@ void adicionarTarefa(const char *descricao, int prioridade) {
     // Preenche os dados da nova tarefa
     tarefas[totalTarefas].id = proximoId++;
     strncpy(tarefas[totalTarefas].descricao, descricao, sizeof(tarefas[totalTarefas].descricao) - 1);
-    tarefas[totalTarefas].descricao[sizeof(tarefas[totalTarefas].descricao) - 1] = '\0'; // Garante o fim da string
-    tarefas[totalTarefas].concluida = 0; // Ainda não foi concluída
+
+    // Garante o fim da string
+    tarefas[totalTarefas].descricao[sizeof(tarefas[totalTarefas].descricao) - 1] = '\0'; 
+
+    // Ainda não foi concluída
+    tarefas[totalTarefas].concluida = 0; 
+    
     tarefas[totalTarefas].prioridade = prioridade;
 
-    totalTarefas++; // Aumenta o contador de tarefas
+    // Aumenta o contador de tarefas
+    totalTarefas++; 
+    
     printf("Tarefa adicionada com sucesso.\n");
 }
 
@@ -158,7 +171,8 @@ int compararPrioridade(const void *a, const void *b) {
     const Tarefa *tarefaA = (const Tarefa *)a;
     const Tarefa *tarefaB = (const Tarefa *)b;
 
-    return tarefaB->prioridade - tarefaA->prioridade;  // Ordena de forma decrescente
+    // Ordena de forma decrescente
+    return tarefaB->prioridade - tarefaA->prioridade;  
 }
 
 // Ordena a lista de tarefas por prioridade
@@ -250,7 +264,9 @@ void carregarTarefasCsv() {
     if (!f) return;
 
     char linha[512];
-    fgets(linha, sizeof(linha), f); // Ignora o cabeçalho
+
+    // Ignora o cabeçalho
+    fgets(linha, sizeof(linha), f); 
 
     totalTarefas = 0;
     while (fgets(linha, sizeof(linha), f) && totalTarefas < MAX_TAREFAS) {
