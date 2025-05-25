@@ -3,14 +3,22 @@
 #include <string.h>     // Usada para manipulação de strings (ex: fgets, strcspn)
 #include "tarefas.h"    // Arquivo de cabeçalho com as funções relacionadas às tarefas
 
-#define ARQUIVO_TAREFAS "tarefas.txt"  // Nome do arquivo principal usado para salvar tarefas
+// Nome do arquivo principal usado para salvar tarefas
+#define ARQUIVO_TAREFAS "tarefas.txt"  
 
 int main() {
-    setlocale(LC_ALL, "Portuguese");   // Ativa o suporte a acentuação no terminal
-    carregarTarefas();                 // Carrega as tarefas salvas anteriormente (caso existam)
 
-    int opcao;                         // Armazena a opção do menu escolhida pelo usuário
-    char descricao[256];              // Buffer para armazenar descrições de tarefas
+    // Ativa o suporte a acentuação no terminal
+    setlocale(LC_ALL, "Portuguese");  
+
+    // Carrega as tarefas salvas anteriormente (caso existam)
+    carregarTarefas();                 
+
+    // Armazena a opção do menu escolhida pelo usuário
+    int opcao;   
+
+    // Buffer para armazenar descrições de tarefas
+    char descricao[256];              
 
     do {
         // Menu principal do programa
@@ -25,7 +33,9 @@ int main() {
         printf("0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
-        getchar(); // Remove o '\n' deixado pelo scanf para evitar problemas em leituras futuras
+
+        // Remove o '\n' deixado pelo scanf para evitar problemas em leituras futuras
+        getchar(); 
 
         switch (opcao) {
             case 1: {
@@ -34,12 +44,18 @@ int main() {
                 int prioridade;
 
                 printf("Digite a descrição da tarefa: ");
-                fgets(descricao, sizeof(descricao), stdin);  // Lê a descrição com espaços
-                descricao[strcspn(descricao, "\n")] = '\0';  // Remove o '\n' final da string
+
+                // Lê a descrição com espaços
+                fgets(descricao, sizeof(descricao), stdin);  
+
+                // Remove o '\n' final da string
+                descricao[strcspn(descricao, "\n")] = '\0';  
 
                 printf("Defina a prioridade (1 = baixa, 2 = média, 3 = alta): ");
                 scanf("%d", &prioridade);
-                getchar(); // Limpa o buffer novamente
+
+                // Limpa o buffer novamente
+                getchar(); 
 
                 if (prioridade < 1 || prioridade > 3) {
                     // Caso o usuário insira um valor inválido
@@ -47,14 +63,19 @@ int main() {
                     prioridade = 2;
                 }
 
-                adicionarTarefa(descricao, prioridade);  // Adiciona a tarefa ao sistema
+                // Adiciona a tarefa ao sistema
+                adicionarTarefa(descricao, prioridade);  
                 break;
             }
 
             case 2:
                 // Lista as tarefas na tela em ordem de prioridade
-                ordenarTarefasPorPrioridade();  // Organiza antes de exibir
-                listarTarefas();                // Mostra todas as tarefas
+
+                // Organiza antes de exibir
+                ordenarTarefasPorPrioridade();  
+
+                // Mostra todas as tarefas
+                listarTarefas();                
                 break;
 
             case 3: {
@@ -62,8 +83,12 @@ int main() {
                 int id;
                 printf("Digite o ID da tarefa a ser marcada como concluída: ");
                 scanf("%d", &id);
-                getchar(); // Limpa o buffer
-                marcarComoConcluida(id);  // Marca a tarefa correspondente
+
+                // Limpa o buffer
+                getchar(); 
+
+                // Marca a tarefa correspondente
+                marcarComoConcluida(id);  
                 break;
             }
 
@@ -72,8 +97,12 @@ int main() {
                 int id;
                 printf("Digite o ID da tarefa a ser removida: ");
                 scanf("%d", &id);
-                getchar(); // Limpa o buffer
-                removerTarefa(id);  // Remove a tarefa
+
+                // Limpa o buffer
+                getchar(); 
+
+                // Remove a tarefa
+                removerTarefa(id);  
                 break;
             }
 
@@ -83,24 +112,33 @@ int main() {
                 char novaDescricao[256];
                 printf("Digite o ID da tarefa a ser editada: ");
                 scanf("%d", &id);
-                getchar(); // Limpa o \n do buffer
+
+                // Limpa o \n do buffer
+                getchar(); 
 
                 printf("Digite a nova descrição: ");
                 fgets(novaDescricao, sizeof(novaDescricao), stdin);
-                novaDescricao[strcspn(novaDescricao, "\n")] = '\0';  // Remove o \n
 
-                editarDescricaoTarefa(id, novaDescricao);  // Atualiza a descrição
+                // Remove o \n
+                novaDescricao[strcspn(novaDescricao, "\n")] = '\0';  
+
+                // Atualiza a descrição
+                editarDescricaoTarefa(id, novaDescricao);  
                 break;
             }
 
             case 6: {
                 // Busca tarefas contendo uma palavra-chave
                 char palavraChave[256];
-                int resultados[100];  // Armazena os índices das tarefas encontradas
+
+                // Armazena os índices das tarefas encontradas
+                int resultados[100];  
 
                 printf("Digite a palavra-chave para busca: ");
                 fgets(palavraChave, sizeof(palavraChave), stdin);
-                palavraChave[strcspn(palavraChave, "\n")] = '\0';  // Remove \n
+
+                // Remove \n
+                palavraChave[strcspn(palavraChave, "\n")] = '\0';  
 
                 int encontrados = buscarTarefasPorPalavraChave(palavraChave, resultados, 100);
 
